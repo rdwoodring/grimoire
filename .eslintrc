@@ -1,5 +1,26 @@
 {
     "extends": "google",
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
     "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "one-var": [
+            "error",
+            "always"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "eol-last": [
+            "warn",
+            "never"
+        ]
     }
 }
