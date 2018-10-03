@@ -3,8 +3,8 @@ import * as React from 'react';
 import './App.css';
 
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-import {Home} from './components/pages/Home';
 import CreateContainer from './components/pages/create/CreateContainer';
+import {Home} from './components/pages/home/Home';
 
 class App extends React.Component {
     public render() {
