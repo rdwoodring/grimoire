@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 
-import {Create} from './Create';
+import Create from './Create';
 
 class CreateContainer extends React.Component {
     constructor(props: any) {
@@ -10,8 +10,26 @@ class CreateContainer extends React.Component {
     
     public render() {
         return (
-            <Create />
+            <Create 
+                textarea={{
+                    onChange: this.onChangeTextarea,
+                    text: ''
+                }}
+                button={{
+                    onClick: this.onButtonClick,
+                    label: 'Submit'
+                }} 
+            />
         );
+    }
+
+    private onButtonClick(e: any) {
+        // debugger;
+        console.warn('hi');
+    }
+
+    private onChangeTextarea(e: any) {
+        debugger;
     }
 }
 
