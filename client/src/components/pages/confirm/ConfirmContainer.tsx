@@ -3,14 +3,18 @@ import {connect} from 'react-redux';
 
 import Confirm from './Confirm';
 
-class ConfirmContainer extends React.Component {
+interface IProps {
+    fetchingInitialCardList: boolean
+};
+
+class ConfirmContainer extends React.Component<IProps> {
     public render() {
-        return <Confirm />
+        return <Confirm fetchingInitialCardList={this.props.fetchingInitialCardList} />
     }
 }
 
 const mapStateToProps = function(state: any) {
-    return {};
+    return {...state.pages.confirm};
 };
 
 export default connect(mapStateToProps, {})(ConfirmContainer);
