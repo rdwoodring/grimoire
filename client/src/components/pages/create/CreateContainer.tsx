@@ -1,12 +1,15 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+import axios, {AxiosResponse} from 'axios';
 
 import updateRawCardList from '../../../actions/action-creators/updateRawCardList';
+import updateFetchingInitialDeckList from '../../../actions/action-creators/updateFetchingInitialDeckList';
 
 import Create from './Create';
 
 interface IProps {
-    onChangeTextarea: Function,
+    updateRawCardList: Function,
+    updateFetchingInitialDeckList: Function,
     rawCardsList: string    
 };
 
@@ -14,7 +17,7 @@ class CreateContainer extends React.Component<IProps> {
     constructor(props: any) {
         super(props);
 
-        this.onButtonClick = this.onButtonClick.bind(this);
+        this.onClickButton = this.onClickButton.bind(this);
         this.onChangeTextarea = this.onChangeTextarea.bind(this);
     }
     
@@ -26,21 +29,31 @@ class CreateContainer extends React.Component<IProps> {
                     text: this.props.rawCardsList
                 }}
                 button={{
-                    onClick: this.onButtonClick,
+                    onClick: this.onClickButton,
                     label: 'Submit'
                 }} 
             />
         );
     }
 
-    private onButtonClick(e: any) {
-        console.warn('hi');
+    private onClickButton(e: any) {
+        this.props.updateFetchingInitialDeckList(true);
+
+        // setTimeout(() => {
+        //     this.props.updateFetchingInitialDeckList(false);
+        // }, 1000);
+        axios.get("https://api.magicthegathering.io/v1/cards")
+            .then((resp: AxiosResponse) => {
+                debugger;
+
+                this.props.updateFetchingInitialDeckList(false);
+            });
     }
 
     private onChangeTextarea(e: any) {
         let text: string = e.currentTarget.value;
 
-        this.props.onChangeTextarea(text);
+        this.props.updateRawCardList(text);
     }
 }
 
@@ -49,11 +62,14 @@ const mapStateToProps = function(state: any) {
 };
 
 const mapDispatchToProps = function(dispatch: any) {
-    return {
-        onChangeTextarea: (rawCardsList: string) => {
+    return { 
+        updateRawCardList: (rawCardsList: string) => {
             return dispatch(updateRawCardList(rawCardsList));
-        }
-    }
+        }, 
+        updateFetchingInitialDeckList: (fetchingInitialDeckList: boolean) => {
+            return dispatch(updateFetchingInitialDeckList(fetchingInitialDeckList));
+        } 
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateContainer);
