@@ -13,6 +13,7 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/create" component={CreateContainer} />
+                    <Route exact path="/confirm" component={CreateContainer} />
                 </Switch>
             </BrowserRouter>
         );
