@@ -28,5 +28,4 @@ class Create extends React.Component<IProps> {
     }
 }
 
-// export  {Create};
 export default Create;

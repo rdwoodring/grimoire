@@ -1,12 +1,21 @@
-import { Deck } from '../../types/deck';
+import actionTypes from '../../constants/constants';
 
 const defaultState = {
-    cards: {}
+    rawCardsList: ''
 };
 
-export default function deck(state: Deck = defaultState, action: any) {
+interface IRawCardsList {
+    rawCardsList: string
+};
+
+export default function deck(state: IRawCardsList = defaultState, action: any) {
     switch (action.type) {
-        default:
-            return state;
+    case actionTypes.UPDATE_RAW_CARD_LIST:
+        return {
+            ...state,
+            ...{rawCardsList: action.payload}
+        };
+    default:
+        return state;
     }
 }

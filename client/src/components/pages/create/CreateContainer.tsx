@@ -1,11 +1,21 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 
+import updateRawCardList from '../../../actions/action-creators/updateRawCardList';
+
 import Create from './Create';
 
-class CreateContainer extends React.Component {
+interface IProps {
+    onChangeTextarea: Function,
+    rawCardsList: string    
+};
+
+class CreateContainer extends React.Component<IProps> {
     constructor(props: any) {
         super(props);
+
+        this.onButtonClick = this.onButtonClick.bind(this);
+        this.onChangeTextarea = this.onChangeTextarea.bind(this);
     }
     
     public render() {
@@ -13,7 +23,7 @@ class CreateContainer extends React.Component {
             <Create 
                 textarea={{
                     onChange: this.onChangeTextarea,
-                    text: ''
+                    text: this.props.rawCardsList
                 }}
                 button={{
                     onClick: this.onButtonClick,
@@ -24,19 +34,26 @@ class CreateContainer extends React.Component {
     }
 
     private onButtonClick(e: any) {
-        // debugger;
         console.warn('hi');
     }
 
     private onChangeTextarea(e: any) {
-        debugger;
+        let text: string = e.currentTarget.value;
+
+        this.props.onChangeTextarea(text);
     }
 }
 
 const mapStateToProps = function(state: any) {
-    return {...state.deck};
+    return {...state.pages.create};
 };
 
+const mapDispatchToProps = function(dispatch: any) {
+    return {
+        onChangeTextarea: (rawCardsList: string) => {
+            return dispatch(updateRawCardList(rawCardsList));
+        }
+    }
+}
 
-
-export default connect(mapStateToProps, {})(CreateContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateContainer);
