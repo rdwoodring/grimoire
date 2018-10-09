@@ -4,12 +4,16 @@ import axios, {AxiosResponse} from 'axios';
 
 import updateRawCardList from '../../../actions/action-creators/updateRawCardList';
 import updateFetchingInitialDeckList from '../../../actions/action-creators/updateFetchingInitialDeckList';
+import updateInitialCardList from "../../../actions/action-creators/updateInitialDeckList";
 
 import Create from './Create';
+
+import Card from '../../../types/card';
 
 interface IProps {
     updateRawCardList: Function,
     updateFetchingInitialDeckList: Function,
+    updateInitialCardList: Function,
     rawCardsList: string    
 };
 
@@ -44,7 +48,18 @@ class CreateContainer extends React.Component<IProps> {
         // }, 1000);
         axios.get("https://api.magicthegathering.io/v1/cards")
             .then((resp: AxiosResponse) => {
+                // let cards = resp.data.cards,
+                //     deck: Array<Object> = [];
+
+                // cards.forEach((card: Object) => {
+                //     deck.push({
+                //         quantity: 1,
+                //         card: card
+                //     });
+                // })
+
                 debugger;
+                this.props.updateInitialCardList(resp.data.cards);
 
                 this.props.updateFetchingInitialDeckList(false);
             });
@@ -68,6 +83,9 @@ const mapDispatchToProps = function(dispatch: any) {
         }, 
         updateFetchingInitialDeckList: (fetchingInitialDeckList: boolean) => {
             return dispatch(updateFetchingInitialDeckList(fetchingInitialDeckList));
+        },
+        updateInitialCardList: (initialDeckList: Array<Card>) => {
+            return dispatch(updateInitialCardList(initialDeckList));
         } 
     };
 }

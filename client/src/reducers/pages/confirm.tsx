@@ -1,13 +1,17 @@
 import actionTypes from "../../constants/constants";
 
-// import { Deck } from "../../types/deck";
+import Card from '../../types/card';
 
 interface IConfirmState {
-    fetchingInitialCardList: boolean
+    fetchingInitialCardList: boolean,
+    cards: Array<Card>,
+    _cardsById: Array<string>
 }
 
 const defaultState: IConfirmState = {
-    fetchingInitialCardList: false
+    fetchingInitialCardList: false,
+    cards: [],
+    _cardsById: []
 };
 
 export default function deck(state: IConfirmState = defaultState, action: any) {
@@ -17,6 +21,16 @@ export default function deck(state: IConfirmState = defaultState, action: any) {
                 ...state,
                 ...{fetchingInitialCardList: action.payload}
             };
+        case actionTypes.UPDATE_INITIAL_CARD_LIST:
+             return {
+                 ...state,
+                 ...{
+                     cards: action.payload,
+                     _cardsById: action.payload.map((card: Card) => {
+                        return card.id;
+                     })
+                 }
+             }
         default:
             return state;
     }
