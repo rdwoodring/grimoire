@@ -43,22 +43,8 @@ class CreateContainer extends React.Component<IProps> {
     private onClickButton(e: any) {
         this.props.updateFetchingInitialDeckList(true);
 
-        // setTimeout(() => {
-        //     this.props.updateFetchingInitialDeckList(false);
-        // }, 1000);
         axios.get("https://api.magicthegathering.io/v1/cards")
             .then((resp: AxiosResponse) => {
-                // let cards = resp.data.cards,
-                //     deck: Array<Object> = [];
-
-                // cards.forEach((card: Object) => {
-                //     deck.push({
-                //         quantity: 1,
-                //         card: card
-                //     });
-                // })
-
-                debugger;
                 this.props.updateInitialCardList(resp.data.cards);
 
                 this.props.updateFetchingInitialDeckList(false);
