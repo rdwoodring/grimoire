@@ -1,6 +1,6 @@
 import actionTypes from "../../constants/constants";
 
-import Card from '../../types/card';
+import ICard from '../../types/ICard';
 
 interface IConfirmState {
     fetchingInitialCardList: boolean,

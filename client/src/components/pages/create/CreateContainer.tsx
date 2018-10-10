@@ -9,7 +9,7 @@ import updateInitialCardQuantities from '../../../actions/action-creators/update
 
 import Create from './Create';
 
-import Card from '../../../types/card';
+import ICard from '../../../types/ICard';
 
 interface IProps {
     updateRawCardList: Function,
@@ -54,7 +54,7 @@ class CreateContainer extends React.Component<IProps> {
 
                 // TODO: this is temporary and will really come from
                 // our proxied server response. for now... fake it
-                resp.data.cards.forEach((element: Card) => {
+                resp.data.cards.forEach((element: ICard) => {
                     cardQuantitiesMap[element.id] = 1;
                 });
 
@@ -83,7 +83,7 @@ const mapDispatchToProps = function(dispatch: any) {
         updateFetchingInitialDeckList: (fetchingInitialDeckList: boolean) => {
             return dispatch(updateFetchingInitialDeckList(fetchingInitialDeckList));
         },
-        updateInitialCardList: (initialDeckList: Array<Card>) => {
+        updateInitialCardList: (initialDeckList: Array<ICard>) => {
             return dispatch(updateInitialCardList(initialDeckList));
         },
         updateInitialCardQuantities: (cardQuantities: Map<string, number>) => {

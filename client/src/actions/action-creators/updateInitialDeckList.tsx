@@ -1,8 +1,8 @@
 import actionTypes from "../../constants/constants";
-import Card from '../../types/card';
+import ICard from '../../types/ICard';
 // import Deck from '../../types/deck';
 
-const updateInitialCardList = (cards: Array<Card>) => {
+const updateInitialCardList = (cards: Array<ICard>) => {
     return {
         type: actionTypes.UPDATE_INITIAL_CARD_LIST,
         payload: cards

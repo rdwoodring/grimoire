@@ -1,4 +1,4 @@
-export default interface Card {
+export default interface ICard {
   name: string;
   manaCost: string;
   cmc: number;
