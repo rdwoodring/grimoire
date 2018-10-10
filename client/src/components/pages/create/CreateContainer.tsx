@@ -47,17 +47,18 @@ class CreateContainer extends React.Component<IProps> {
 
         axios.get("https://api.magicthegathering.io/v1/cards")
             .then((resp: AxiosResponse) => {
+                // let cardQuantitiesMap = new Map();
+                let cardQuantitiesMap = {};
+
                 this.props.updateInitialCardList(resp.data.cards);
 
                 // TODO: this is temporary and will really come from
                 // our proxied server response. for now... fake it
-                this.props.updateInitialCardQuantities(resp.data.cards.map((card: Card) => {
-                    let obj = {};
+                resp.data.cards.forEach((element: Card) => {
+                    cardQuantitiesMap[element.id] = 1;
+                });
 
-                    obj[card.id] = 1;
-
-                    return obj;
-                }));
+                this.props.updateInitialCardQuantities(cardQuantitiesMap);
 
                 this.props.updateFetchingInitialDeckList(false);
             });
