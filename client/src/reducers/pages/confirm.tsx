@@ -5,13 +5,15 @@ import Card from '../../types/card';
 interface IConfirmState {
     fetchingInitialCardList: boolean,
     cards: Array<Card>,
-    _cardsById: Array<string>
+    _cardsById: Array<string>,
+    cardQuantities: Map<string, number>
 }
 
 const defaultState: IConfirmState = {
     fetchingInitialCardList: false,
     cards: [],
-    _cardsById: []
+    _cardsById: [],
+    cardQuantities: new Map()
 };
 
 export default function deck(state: IConfirmState = defaultState, action: any) {
@@ -30,7 +32,14 @@ export default function deck(state: IConfirmState = defaultState, action: any) {
                         return card.id;
                      })
                  }
-             }
+             };
+        case actionTypes.UPDATE_INITIAL_CARD_QUANTITIES:
+             return {
+                 ...state,
+                 ...{
+                     cardQuantities: action.payload
+                 }
+             };
         default:
             return state;
     }

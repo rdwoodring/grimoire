@@ -5,6 +5,7 @@ import axios, {AxiosResponse} from 'axios';
 import updateRawCardList from '../../../actions/action-creators/updateRawCardList';
 import updateFetchingInitialDeckList from '../../../actions/action-creators/updateFetchingInitialDeckList';
 import updateInitialCardList from "../../../actions/action-creators/updateInitialDeckList";
+import updateInitialCardQuantities from '../../../actions/action-creators/updateInitialCardQuantities';
 
 import Create from './Create';
 
@@ -14,6 +15,7 @@ interface IProps {
     updateRawCardList: Function,
     updateFetchingInitialDeckList: Function,
     updateInitialCardList: Function,
+    updateInitialCardQuantities: Function,
     rawCardsList: string    
 };
 
@@ -47,6 +49,16 @@ class CreateContainer extends React.Component<IProps> {
             .then((resp: AxiosResponse) => {
                 this.props.updateInitialCardList(resp.data.cards);
 
+                // TODO: this is temporary and will really come from
+                // our proxied server response. for now... fake it
+                this.props.updateInitialCardQuantities(resp.data.cards.map((card: Card) => {
+                    let obj = {};
+
+                    obj[card.id] = 1;
+
+                    return obj;
+                }));
+
                 this.props.updateFetchingInitialDeckList(false);
             });
     }
@@ -72,6 +84,9 @@ const mapDispatchToProps = function(dispatch: any) {
         },
         updateInitialCardList: (initialDeckList: Array<Card>) => {
             return dispatch(updateInitialCardList(initialDeckList));
+        },
+        updateInitialCardQuantities: (cardQuantities: Map<string, number>) => {
+            return dispatch(updateInitialCardQuantities(cardQuantities));
         } 
     };
 }
