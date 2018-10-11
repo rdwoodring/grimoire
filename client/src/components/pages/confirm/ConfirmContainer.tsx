@@ -2,15 +2,12 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 
 import Confirm from './Confirm';
+import IConfirmPage from '../../../types/IConfirmPage';
 
-interface IProps {
-    fetchingInitialCardList: boolean
-};
-
-class ConfirmContainer extends React.Component<IProps> {
-    public render() {
-        return <Confirm fetchingInitialCardList={this.props.fetchingInitialCardList} />
-    }
+class ConfirmContainer extends React.Component<IConfirmPage> {
+  public render() {
+    return <Confirm {...this.props} />;
+  }
 }
 
 const mapStateToProps = function(state: any) {
