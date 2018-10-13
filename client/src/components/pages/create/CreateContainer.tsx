@@ -5,7 +5,6 @@ import axios, {AxiosResponse} from 'axios';
 import updateRawCardList from '../../../actions/action-creators/updateRawCardList';
 import updateFetchingInitialDeckList from '../../../actions/action-creators/updateFetchingInitialDeckList';
 import updateInitialCardList from "../../../actions/action-creators/updateInitialDeckList";
-import updateInitialCardQuantities from '../../../actions/action-creators/updateInitialCardQuantities';
 
 import Create from './Create';
 
@@ -15,7 +14,6 @@ interface IProps {
     updateRawCardList: Function,
     updateFetchingInitialDeckList: Function,
     updateInitialCardList: Function,
-    updateInitialCardQuantities: Function,
     rawCardsList: string    
 };
 
@@ -42,23 +40,28 @@ class CreateContainer extends React.Component<IProps> {
         );
     }
 
-    private onClickButton(e: any) {
+    private onClickButton() {
         this.props.updateFetchingInitialDeckList(true);
 
         axios.get("https://api.magicthegathering.io/v1/cards")
             .then((resp: AxiosResponse) => {
-                // let cardQuantitiesMap = new Map();
-                let cardQuantitiesMap = {};
+                let cards = new Array<ICard>();
 
-                this.props.updateInitialCardList(resp.data.cards);
 
                 // TODO: this is temporary and will really come from
                 // our proxied server response. for now... fake it
-                resp.data.cards.forEach((element: ICard) => {
-                    cardQuantitiesMap[element.id] = 1;
-                });
+                resp.data.cards.forEach((element: any) => {
+                    let newElement = {
+                        ...element,
+                        ...{
+                            quantity: 1
+                        }
+                    };
 
-                this.props.updateInitialCardQuantities(cardQuantitiesMap);
+                    cards.push(newElement);
+                })
+
+                this.props.updateInitialCardList(cards);
 
                 this.props.updateFetchingInitialDeckList(false);
             });
@@ -85,10 +88,7 @@ const mapDispatchToProps = function(dispatch: any) {
         },
         updateInitialCardList: (initialDeckList: Array<ICard>) => {
             return dispatch(updateInitialCardList(initialDeckList));
-        },
-        updateInitialCardQuantities: (cardQuantities: Map<string, number>) => {
-            return dispatch(updateInitialCardQuantities(cardQuantities));
-        } 
+        }
     };
 }
 

@@ -23,4 +23,5 @@ export default interface ICard {
   originalText: string;
   originalType: string;
   id: string;
+  quantity: number;
 }

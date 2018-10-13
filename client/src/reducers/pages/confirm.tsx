@@ -6,8 +6,7 @@ import ICard from '../../types/ICard';
 const defaultState: IConfirmPage = {
     fetchingInitialCardList: false,
     cards: [],
-    _cardsById: [],
-    cardQuantities: new Map()
+    _cardsById: []
 };
 
 export default function deck(state: IConfirmPage = defaultState, action: any) {
@@ -22,17 +21,12 @@ export default function deck(state: IConfirmPage = defaultState, action: any) {
         case actionTypes.UPDATE_INITIAL_CARD_LIST:
             return { 
                 ...state, 
-                ...{ cards: action.payload, _cardsById: action.payload.map((card: ICard) => {
+                ...{ 
+                    cards: action.payload, 
+                    _cardsById: action.payload.map((card: ICard) => {
                         return card.id;
                     })
                 }
-            };
-        case actionTypes.UPDATE_INITIAL_CARD_QUANTITIES:
-            return { 
-                ...state, 
-                ...{ 
-                    cardQuantities: action.payload 
-                } 
             };
         default:
             return state;
