@@ -5,7 +5,11 @@ import IConfirmPage from '../../../types/IConfirmPage';
 import Button from '../../form-elements/buttons/Button';
 import { Link } from 'react-router-dom';
 
-class Confirm extends React.Component<IConfirmPage> {
+interface IProps {
+    handleSubmitButtonClick: Function
+}; 
+
+class Confirm extends React.Component<IConfirmPage & IProps> {
   public render() {
     let bodyMarkup;
 
@@ -14,7 +18,7 @@ class Confirm extends React.Component<IConfirmPage> {
     } else {
         bodyMarkup =
             <Link to="/deckbuilder">
-                <Button label="Confirm"  onClick={() => {}} />
+                <Button label="Confirm"  onClick={this.props.handleSubmitButtonClick} />
             </Link>
         ;
     }
