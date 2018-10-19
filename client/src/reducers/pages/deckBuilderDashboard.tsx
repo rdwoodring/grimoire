@@ -8,7 +8,7 @@ interface IProps {
 };
 
 const defaultState: IProps = {
-    cards: new Map(),
+    cards: new Map<string, ICard>(),
     _cardsById: []
 }
 
@@ -19,9 +19,7 @@ export default function(state: IProps = defaultState, action: any) {
                 ...state,
                 ...{
                     cards: action.payload,
-                    _cardsById: action.payload.map((card: ICard) => {
-                        return card.id;
-                    })
+                    _cardsById: Array.from(action.payload.keys())
                 }
             }
         default:

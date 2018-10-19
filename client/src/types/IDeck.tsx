@@ -5,7 +5,6 @@ export default interface IDeck {
     //     quantity: number,
     //     card: Card
     // }[]
-    cards: Map<string, ICard>,
-    cardQuantities: Map<string, number>,
-    _cardsById: Array<string>,
+    cards: Map<string, ICard>;
+    _cardsById: Array<string>;
 };

@@ -1,10 +1,17 @@
 import * as React from 'react';
 
-class DeckBuilderDashboard extends React.Component<Object> {
+
+import IDeck from '../../../types/IDeck';
+import ICard from '../../../types/ICard';
+
+class DeckBuilderDashboard extends React.Component<IDeck> {
     public render() {
+
         return (
             <div>
-                Deck Builder Dashboard
+                <div>
+                    Deck Builder Dashboard
+                </div>
             </div>
         )
     }
