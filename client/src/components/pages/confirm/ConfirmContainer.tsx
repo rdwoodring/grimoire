@@ -35,7 +35,7 @@ const mapStateToProps = function(state: any) {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        updateCardList: (deckList: Array<ICard>) => {
+        updateCardList: (deckList: Map<string, ICard>) => {
             return dispatch(updateCardList(deckList));
         }
     };

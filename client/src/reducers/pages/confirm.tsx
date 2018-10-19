@@ -5,7 +5,7 @@ import ICard from '../../types/ICard';
 
 const defaultState: IConfirmPage = {
     fetchingInitialCardList: false,
-    cards: [],
+    cards: new Map<string, ICard>(),
     _cardsById: []
 };
 
@@ -23,9 +23,7 @@ export default function deck(state: IConfirmPage = defaultState, action: any) {
                 ...state, 
                 ...{ 
                     cards: action.payload, 
-                    _cardsById: action.payload.map((card: ICard) => {
-                        return card.id;
-                    })
+                    _cardsById: Array.from(action.payload.keys())
                 }
             };
         default:
