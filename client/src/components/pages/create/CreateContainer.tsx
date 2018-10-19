@@ -45,21 +45,14 @@ class CreateContainer extends React.Component<IProps> {
 
         axios.get("https://api.magicthegathering.io/v1/cards")
             .then((resp: AxiosResponse) => {
-                let cards = new Array<ICard>();
-
-
-                // TODO: this is temporary and will really come from
-                // our proxied server response. for now... fake it
-                resp.data.cards.forEach((element: any) => {
-                    let newElement = {
+                let cards = new Map<string, ICard>(resp.data.cards.map((element: any) => {
+                    return [element.id, {
                         ...element,
                         ...{
                             quantity: 1
                         }
-                    };
-
-                    cards.push(newElement);
-                })
+                    }];
+                }));
 
                 this.props.updateInitialCardList(cards);
 
@@ -86,7 +79,7 @@ const mapDispatchToProps = function(dispatch: any) {
         updateFetchingInitialDeckList: (fetchingInitialDeckList: boolean) => {
             return dispatch(updateFetchingInitialDeckList(fetchingInitialDeckList));
         },
-        updateInitialCardList: (initialDeckList: Array<ICard>) => {
+        updateInitialCardList: (initialDeckList: Map<string, ICard>) => {
             return dispatch(updateInitialCardList(initialDeckList));
         }
     };
