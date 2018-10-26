@@ -3,12 +3,14 @@ import actionTypes from '../../constants/constants';
 import ICard from '../../types/ICard';
 
 interface IProps {
-    cards: Map<string, ICard>;
+    cards: {
+        [s: string]: ICard
+    };
     _cardsById: Array<string>;
 };
 
 const defaultState: IProps = {
-    cards: new Map<string, ICard>(),
+    cards: {},
     _cardsById: []
 }
 
@@ -19,7 +21,7 @@ export default function(state: IProps = defaultState, action: any) {
                 ...state,
                 ...{
                     cards: action.payload,
-                    _cardsById: Array.from(action.payload.keys())
+                    _cardsById: Object.keys(action.payload)
                 }
             }
         default:

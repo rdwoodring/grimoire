@@ -8,7 +8,9 @@ import ICard from '../../../types/ICard';
 
 class DeckBuilderDashboard extends React.Component<IDeck> {
     public render() {
-        const cards: ICard[] = Array.from(this.props.cards.values());
+        const cards: ICard[] = this.props._cardsById.map((id) => {
+            return this.props.cards[id];
+        });
 
         return (
             <div>

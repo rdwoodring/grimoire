@@ -1,11 +1,11 @@
 import actionTypes from "../../constants/constants";
 
 import IConfirmPage from '../../types/IConfirmPage';
-import ICard from '../../types/ICard';
+// import ICard from '../../types/ICard';
 
 const defaultState: IConfirmPage = {
     fetchingInitialCardList: false,
-    cards: new Map<string, ICard>(),
+    cards: {},
     _cardsById: []
 };
 
@@ -23,7 +23,8 @@ export default function deck(state: IConfirmPage = defaultState, action: any) {
                 ...state, 
                 ...{ 
                     cards: action.payload, 
-                    _cardsById: Array.from(action.payload.keys())
+                    // _cardsById: Array.from(action.payload.keys())
+                    _cardsById: Object.keys(action.payload)
                 }
             };
         default:
