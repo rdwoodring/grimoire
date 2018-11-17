@@ -23,7 +23,6 @@ export default function deck(state: IConfirmPage = defaultState, action: any) {
                 ...state, 
                 ...{ 
                     cards: action.payload, 
-                    // _cardsById: Array.from(action.payload.keys())
                     _cardsById: Object.keys(action.payload)
                 }
             };
