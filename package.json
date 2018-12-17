@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "npm run build-ts && npm run tslint",
-    "watch-node": "nodemon dist/server.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-node": "nodemon dist ./bin/www",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "test": "jest --forceExit --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
@@ -14,16 +14,22 @@
     "tslint": "tslint -c tslint.json -p tsconfig.json"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "dotenv": "^6.2.0",
     "express": "~4.16.0",
     "morgan": "~1.9.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/body-parser": "^1.17.0",
     "@types/cookie-parser": "^1.4.1",
     "@types/debug": "^0.0.31",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.12.9",
+    "concurrently": "^4.1.0",
     "eslint": "^5.5.0",
     "eslint-config-google": "^0.10.0",
     "jest": "^23.6.0",
