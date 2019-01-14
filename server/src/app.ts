@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import dotenv from 'dotenv';
+
 import router from './routes/index';
 
 const /* express = require('express'),
@@ -10,6 +12,8 @@ const /* express = require('express'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'), */
     app = express();
+
+dotenv.config();
 
 app.use(logger('dev'));
 app.use(express.json());
