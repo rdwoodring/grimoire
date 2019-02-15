@@ -52,6 +52,8 @@ router.get('/api/v1/cards/pricing', function(req: Request, res: Response, next: 
             return err;
         })
         .then((response) => {
+            // console.log(response);
+            // res.send('hi');
             res.send(response);
         });
 });

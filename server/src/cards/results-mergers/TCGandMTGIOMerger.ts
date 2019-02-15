@@ -10,7 +10,9 @@ class TCGandMTGIOMerger implements IResultsMerger {
                 const matchedCard = tcgPlayerCardData.data
                     .cards
                     .find((card: any) => {
-                        return card.name === priceData.productName && card.set === priceData.group.abbreviation;
+                        console.log(card.name, priceData.name, card.set, priceData.group.abbreviation);
+                        // console.log(card.name === priceData.productName && card.set === priceData.group.abbreviation);
+                        return card.name === priceData.name && card.set === priceData.group.abbreviation;
                     }),
                     mergedCard = {
                         ...matchedCard,

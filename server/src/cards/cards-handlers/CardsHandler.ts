@@ -43,7 +43,9 @@ class CardsHandler implements ICardsHandler {
                 //     results: merged,
                 //     totalResults: merged.length
                 // }
+                // console.log(responses[1]);
                 return this.resultMerger.mergeCards(responses[0], responses[1]);
+                // return responses[0];
             });
     }
 }
